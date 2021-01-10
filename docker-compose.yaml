@@ -1,0 +1,18 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  app:
+    build: .
+    depends_on:
+      - db
+    environment:
+      - PYTHONUNBUFFERED=1
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: dvdrental
+    volumes:
+    - ./backup:/tmp
+    command: ["postgres", "-c", "log_statement=all"]
+ 
